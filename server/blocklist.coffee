@@ -27,6 +27,7 @@
 @blocklist = [
     'terms of use'
     'additional terms'
+    'registered trademark of the wikimedia foundation'
     'site'
     'utc'
     'text'
