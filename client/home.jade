@@ -1,0 +1,193 @@
+template(name='home')
+    .ui.stackable.padded.grid
+        .row
+            .sixteen.wide.center.aligned.column
+                each selected_tags
+                    button.ui.active.compact.circular.button.unselect_tag(tabindex="0" class="#{loading_class} #{active_term_class}")
+                        if term.image
+                            img.ui.mini.inline.image(src=term.image class=active_term_class)
+                        .ui.inline.small.header #{this}
+                        //- button.ui.active.large.circular.button.unselect_tag(tabindex='0' style=background_style class=emotion_color)
+                //- .ui.inline.small.header(class=emotion_color) {{fixed omega_doc.current_max_emotion_percent}}% #{omega_doc.current_most_emotion}
+                        
+                .ui.left.icon.search.small.input
+                    unless is_loading
+                        if home_subs_ready
+                            i.search.link.icon.refresh_agg
+                    unless home_subs_ready
+                        i.yin.yang.big.loading.link.icon.reconnect
+                    if is_loading
+                        i.yin.yang.big.loading.large.icon
+                    //- input#search(type='text' autofocus='' autocomplete="off" value=current_query)
+                    input#search(type='text' autofocus='' autocomplete="off")
+                //- .ui.header #{connection.status}
+                div
+                unless connected
+                    //- .ui.header disconnected
+                    //- .ui.hidden.divider
+                    i.lightning.invert.yellow.big.circular.link.icon
+                //- div
+                if connected
+                    each agg_tags
+                        +agg_tag
+            .four.wide.right.aligned.column
+                //- .spacer
+                //- .ui.small.grey.header media
+                //- .spacer
+                //- .ui.small.grey.header
+                //-     i.brain.icon
+                //-     |emotions
+                each selected_emotions
+                    .ui.compact.circular.active.large.button.unselect_emotion #{this}
+                each emotion_results
+                    if title.length
+                        .ui.compact.circular.large.button.select_emotion(class=emotion_selector_class)
+                            small #{count}
+                            |#{title}
+                //- div
+                //- .ui.circular.icon.disabled.button 
+                //-     i.picture.large.icon
+                //- .ui.circular.icon.disabled.button 
+                //-     i.video.large.icon
+                //- .ui.circular.icon.disabled.button 
+                //-     i.content.large.icon
+                div
+                small #{curent_date_setting}
+                .ui.compact.circular.button.set_all_time
+                    i.calendar.outline.icon
+                    |all time
+                .ui.compact.circular.button.set_today
+                    i.sun.icon
+                    |today
+                //- .spacer
+                //- .ui.small.grey.header
+                //-     i.reddit.icon
+                //-     |subreddits
+                //- each selected_subreddits
+                //-     .ui.compact.circular.active.button.unselect_subreddit #{this}
+                //- each subreddit_results
+                //-     .ui.compact.circular.button.select_subreddit #{title}
+                //- .spacer
+                //- .ui.small.grey.header
+                //-     i.user.outline.icon
+                //-     |authors
+                .spacer
+                //- .ui.small.grey.header 
+                //-     i.globe.icon
+                //-     |domains
+                each selected_domains
+                    .ui.compact.circular.active.button.unselect_domain #{this}
+                each domain_results
+                    if title.length
+                        .ui.compact.circular.button.select_domain #{title}
+            .twelve.wide.column.scrolling
+                if one_result
+                    each doc_results
+                        +one_doc
+                if two_posts
+                    .ui.grid
+                        .two.column.row
+                            each doc_results
+                                +doc_card
+                if three_posts
+                    .ui.grid
+                        .two.column.row
+                            each doc_results
+                                +small_card
+                if four_posts
+                    .ui.stackable.grid
+                        .four.column.row
+                            each doc_results
+                                +medium_card
+                if more_than_four
+                    //- .ui.selection.list
+                    each doc_results
+                        +doc_list_item
+                        .spacer
+                    //- .ui.grid.mobile.only
+                    //-     .two.column.centered.row
+                    //-         each doc_results
+                    //-             +small_card
+                    //- .ui.stackable.grid
+                    //-     .five.column.row
+                    //-         each doc_results
+                    //-             +small_card
+                    //- .ui.centered.stackable.five.cards
+                //- if six_posts
+                //-     .ui.grid
+                //-         .four.column.row
+                //-             each doc_results
+                //-                 +small_card
+                //- if seven_posts
+                //-     .ui.grid
+                //-         .four.column.row
+                //-             each doc_results
+                //-                 +small_card
+                //- //- if eight_posts
+                //- //-     .ui.large.selection.list
+                //- //-         each doc_results
+                //- //-             .item 
+                //- //-                 .header
+                //- //-                     |#{title}
+                //- //-                 a.ui.large.compact.circular.button(href="https://www.reddit.com/#{permalink}" target="_blank" title='view reddit comments')
+                //- //-                     i.chat.outline.large.icon
+                //- //-                     |#{comment_count}
+                //- //-                 a.ui.tertiary.button(href="https://www.reddit.com/r/#{subreddit}" target="_blank")
+                //- //-                     i.reddit.icon
+                //- //-                     |r/#{subreddit}
+                //- //-                 if publish_when
+                //- //-                     .ui.small.tertiary.circular.button
+                //- //-                         //- i.calendar.icon
+                //- //-                         //- |#{watson.metadata.publication_date}
+                //- //-                         |#{publish_when}
+                //- //-                 .ui.tertiary.circular.button.toggle_domain(title='add domain')
+                //- //-                     //- i.globe.icon
+                //- //-                     |#{domain}
+                //- 
+                //- if nine_posts
+                //-     .ui.grid
+                //-         .seven.column.centered.row
+                //-             each doc_results
+                //-                 +small_card
+                //-     //- 
+                //-     //- .ui.large.selection.list.scrolling
+                //-     //-     each doc_results
+                //-     //-         .item #{title}
+                //- if ten_posts
+                //-     .ui.grid.mobile.only
+                //-         .two.column.centered.row
+                //-             each doc_results
+                //-                 +medium_card
+                //- 
+                //-     .ui.grid.mobile.hidden
+                //-         .four.column.row
+                //-             each doc_results
+                //-                 +small_card
+                //- if more_than_ten
+                //-     .ui.stackable.grid
+                //-         .seven.column.centered.row
+                //-             each doc_results 
+                //-                 +small_card
+                //- //- .centered.row.flat
+                //- //-     .eight.wide.column
+                //- //-         //- .ui.hidden.divider
+                //- //-         .ui.header 
+                //- //-             |sponsored by
+                //- //-             a(href="https://ciomastermind.com/" target="_window")
+                //- //-                 //- |ciomastermind
+                //- //-                 img.ui.small.inline.image(src="https://static1.squarespace.com/static/5e7227fe0a7d0212a00b4e68/t/5e73a2c578579570907dfe02/1591829497276/?format=1500w")
+                    
+                    
+template(name='agg_tag')
+    button.ui.tertiary.large.button.result(tabindex="0" title=count)
+        if term.image
+            //- button.ui.compact.circular.button(tabindex="0" title=count)
+            //- img.ui.mini.inline.image(src=term.image)
+            img.ui.avatar.image(src=term.image)
+            .ui.inline.small.thin.header(class=tag_result_class) #{title}
+        else
+            //- button.ui.compact.circular.button(tabindex="0" title=count)
+            .ui.inline.small.thin.header(class=tag_result_class) #{title}
+
+        //- small #{count}
+                    
