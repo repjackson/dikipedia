@@ -25,6 +25,14 @@
 
 
 @blocklist = [
+    'terms of use'
+    'additional terms'
+    'page'
+    'wikipedia'
+    'internal link'
+    'disambiguation page lists articles'
+    'wikimedia foundation, inc.'
+    'creative commons attribution-sharealike license'
     'technology and computing'
     'web search'
     'internet technology'

@@ -1,7 +1,9 @@
 template(name='home')
     .ui.stackable.padded.grid
         .row
-            .sixteen.wide.center.aligned.column
+            .three.wide.column
+                .ui.header dikipedia
+            .sixteen.wide.column
                 each selected_tags
                     button.ui.active.compact.circular.button.unselect_tag(tabindex="0" class="#{loading_class} #{active_term_class}")
                         if term.image
@@ -53,33 +55,6 @@ template(name='home')
                 //-     i.content.large.icon
                 div
                 small #{curent_date_setting}
-                .ui.compact.circular.button.set_all_time
-                    i.calendar.outline.icon
-                    |all time
-                .ui.compact.circular.button.set_today
-                    i.sun.icon
-                    |today
-                //- .spacer
-                //- .ui.small.grey.header
-                //-     i.reddit.icon
-                //-     |subreddits
-                //- each selected_subreddits
-                //-     .ui.compact.circular.active.button.unselect_subreddit #{this}
-                //- each subreddit_results
-                //-     .ui.compact.circular.button.select_subreddit #{title}
-                //- .spacer
-                //- .ui.small.grey.header
-                //-     i.user.outline.icon
-                //-     |authors
-                .spacer
-                //- .ui.small.grey.header 
-                //-     i.globe.icon
-                //-     |domains
-                each selected_domains
-                    .ui.compact.circular.active.button.unselect_domain #{this}
-                each domain_results
-                    if title.length
-                        .ui.compact.circular.button.select_domain #{title}
             .twelve.wide.column.scrolling
                 if one_result
                     each doc_results
@@ -179,7 +154,7 @@ template(name='home')
                     
                     
 template(name='agg_tag')
-    button.ui.tertiary.large.button.result(tabindex="0" title=count)
+    button.ui.button.result(tabindex="0" title=count)
         if term.image
             //- button.ui.compact.circular.button(tabindex="0" title=count)
             //- img.ui.mini.inline.image(src=term.image)

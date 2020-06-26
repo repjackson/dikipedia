@@ -1,7 +1,4 @@
 @selected_tags = new ReactiveArray []
-@selected_subreddits = new ReactiveArray []
-@selected_authors = new ReactiveArray []
-@selected_domains = new ReactiveArray []
 @selected_emotions = new ReactiveArray []
 
 Template.admin.helpers
@@ -20,20 +17,12 @@ Template.home.onCreated ->
         selected_tags.array()
     @autorun => @subscribe 'tag_results',
         selected_tags.array()
-        selected_subreddits.array()
-        selected_domains.array()
-        selected_authors.array()
         selected_emotions.array()
         Session.get('current_query')
         Session.get('dummy')
-        Session.get('date_setting')
     @autorun => @subscribe 'doc_results',
         selected_tags.array()
-        selected_subreddits.array()
-        selected_domains.array()
-        selected_authors.array()
         selected_emotions.array()
-        Session.get('date_setting')
 
 Template.tone.events
     # 'click .upvote_sentence': ->
