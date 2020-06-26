@@ -17,6 +17,20 @@ if Meteor.isClient
 
     Template.doc_page.events
         'click .call_watson': ->
+            if @wiki_html
+                dom = document.createElement('textarea')
+                # dom.innerHTML = doc.body
+                dom.innerHTML = @wiki_html.content
+                console.log 'innner html', dom.value
+                # return dom.value
+                Docs.update @_id,
+                    $set:
+                        parsed_wiki_html:dom.value
+            # Meteor.call 'call_watson', @_id, 'url', 'url', ->
+            # Meteor.call 'agg_omega', ->
+
+
+
             Meteor.call 'call_watson', @_id, 'url', 'url'
         'click .call_watson_image': ->
             Meteor.call 'call_watson', @_id, 'url', 'image'

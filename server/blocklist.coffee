@@ -27,6 +27,13 @@
 @blocklist = [
     'terms of use'
     'additional terms'
+    'site'
+    'utc'
+    'text'
+    'privacy policy'
+    'intended article'
+    'disambiguation page lists articles'
+    'non-profit organization'
     'page'
     'wikipedia'
     'internal link'

@@ -24,20 +24,22 @@ template(name='doc_page')
                                 a(href=watson.metadata.image target='_window')
                                     img.ui.centered.image.rounded.pointer.call_visual(src=watson.metadata.image)
                     .scrollin
-                        if rd.selftext_html
-                            //- unless tone
-                            //- .content
-                            |!{parsed_selftext_html}
-                            //- |!{rd.selftext_html}
+                        if parsed_wiki_html
+                            |!{parsed_wiki_html}
+                            //- if rd.selftext_html
+                            //-     //- unless tone
+                            //-     //- .content
+                            //-     |!{parsed_selftext_html}
+                            //-     //- |!{rd.selftext_html}
                         else
                             if tone
                                 //- .scrolling
                                 +tone
                             //- else
-                        if rd.selftext
-                            .content
-                                +markdown
-                                    !{rd.selftext}
+                        //- if rd.selftext
+                        //-     .content
+                        //-         +markdown
+                        //-             !{rd.selftext}
                 
                     //- +session_edit_value_button key='view_tone' value=false label='plain'
 

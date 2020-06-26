@@ -215,6 +215,20 @@ Template.home.events
         # Meteor.call 'agg_omega', ->
 
 
+    'click .call_watson': ->
+        if @rd and @rd.selftext_html
+            dom = document.createElement('textarea')
+            # dom.innerHTML = doc.body
+            dom.innerHTML = @rd.selftext_html
+            console.log 'innner html', dom.value
+            # return dom.value
+            Docs.update @_id,
+                $set:
+                    parsed_selftext_html:dom.value
+        Meteor.call 'call_watson', @_id, 'url', 'url', ->
+        # Meteor.call 'agg_omega', ->
+
+
 
 
 
