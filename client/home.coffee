@@ -47,15 +47,15 @@ Template.agg_tag.helpers
             # console.log 'found term emotion', term
             if term.max_emotion_name
                 if term.max_emotion_name is 'anger'
-                    'red invert'
+                    'red'
                 else if term.max_emotion_name is 'sadness'
-                    'blue invert'
+                    'blue'
                 else if term.max_emotion_name is 'joy'
-                    'green invert'
+                    'green'
                 else if term.max_emotion_name is 'disgust'
-                    'orange invert'
+                    'orange'
                 else if term.max_emotion_name is 'fear'
-                    'grey invert'
+                    'grey'
 
 
 Template.agg_tag.events
@@ -70,17 +70,12 @@ Template.agg_tag.events
         Session.set('current_query', '')
         Session.set('searching', false)
 
-        Meteor.call 'search_reddit', selected_tags.array(), ->
-        # Meteor.setTimeout ->
-        #     Session.set('dummy', !Session.get('dummy'))
-        # , 7000
     # 'click .call_visual': ->
     #     Meteor.call 'call_visual', @_id, (err,res)->
     #         console.log res
 
     'click .select_query': ->
         selected_tags.push @title
-        Meteor.call 'search_reddit', selected_tags.array(), ->
         $('#search').val('')
         Session.set('current_query', '')
         Session.set('searching', false)
@@ -97,21 +92,6 @@ Template.home.events
             Meteor.call 'call_wiki', selected_tags.array(), ->
             Meteor.call 'calc_term', @title, ->
 
-        if selected_tags.array().length > 0
-            Meteor.call 'search_reddit', selected_tags.array(), ->
-                Session.set('dummy', !Session.get('dummy'))
-
-    'click .select_subreddit': ->
-        selected_subreddits.push @title
-    'click .unselect_subreddit': ->
-        selected_subreddits.remove @valueOf()
-        # console.log selected_tags.array()
-
-    'click .select_domain': ->
-        selected_domains.push @title
-    'click .unselect_domain': ->
-        selected_domains.remove @valueOf()
-        # console.log selected_tags.array()
 
     'click .select_emotion': ->
         selected_emotions.push @title
@@ -140,7 +120,6 @@ Template.home.events
                     Meteor.call 'calc_term', @title, ->
                     Meteor.call 'omega', @title, ->
 
-                Meteor.call 'search_reddit', selected_tags.array(), ->
                 Meteor.call 'log_term', search, ->
 
                 $('#search').val('')
@@ -164,8 +143,6 @@ Template.home.events
     'click .reconnect': -> Meteor.reconnect()
 
     'click .toggle_tag': (e,t)-> selected_tags.push @valueOf()
-    'click .toggle_domain': (e,t)-> selected_domains.push @domain
-    'click .toggle_subreddit': (e,t)-> selected_subreddits.push @subreddit
 
     'keyup .add_tag': (e,t)->
         # Session.set('current_query', query)
@@ -185,34 +162,8 @@ Template.home.events
                 Meteor.call 'call_wiki', tag, =>
                     Meteor.call 'log_term', tag, ->
 
-    'click .vote_up': (e,t)->
-        Docs.update @_id,
-            $inc:points:1
-
-
-    'click .vote_down': (e,t)->
-        Docs.update @_id,
-            $inc:points:-1
-
     'click .print_me': (e,t)->
         console.log @
-    'click .pull_post': (e,t)->
-        # console.log @
-        Meteor.call 'get_reddit_post', @_id, @reddit_id, =>
-        # Meteor.call 'agg_omega', ->
-
-    'click .call_watson': ->
-        if @rd and @rd.selftext_html
-            dom = document.createElement('textarea')
-            # dom.innerHTML = doc.body
-            dom.innerHTML = @rd.selftext_html
-            console.log 'innner html', dom.value
-            # return dom.value
-            Docs.update @_id,
-                $set:
-                    parsed_selftext_html:dom.value
-        Meteor.call 'call_watson', @_id, 'url', 'url', ->
-        # Meteor.call 'agg_omega', ->
 
 
     'click .call_watson': ->
@@ -241,15 +192,15 @@ Template.home.helpers
             # console.log 'found term emotion', term
             if term.max_emotion_name
                 if term.max_emotion_name is 'anger'
-                    'red invert'
+                    'red'
                 else if term.max_emotion_name is 'sadness'
-                    'blue invert'
+                    'blue'
                 else if term.max_emotion_name is 'joy'
-                    'green invert'
+                    'green'
                 else if term.max_emotion_name is 'disgust'
-                    'orange invert'
+                    'orange'
                 else if term.max_emotion_name is 'fear'
-                    'grey invert'
+                    'grey'
 
 
     curent_date_setting: -> Session.get('date_setting')
@@ -303,14 +254,6 @@ Template.home.helpers
         Meteor.status()
     connected: -> Meteor.status().connected
 
-    subreddit_results: ->
-        Subreddits.find({},
-            limit:10
-            sort:
-                count:-1
-        )
-    selected_subreddits: -> selected_subreddits.array()
-
     emotion_results: ->
         Emotion_results.find({},
             limit:10
@@ -318,14 +261,6 @@ Template.home.helpers
                 count:-1
         )
     selected_emotions: -> selected_emotions.array()
-
-    domain_results: ->
-        Domain_results.find({},
-            limit:10
-            sort:
-                count:-1
-        )
-    selected_domains: -> selected_domains.array()
 
     agg_tags: ->
         # console.log Session.get('current_query')
@@ -355,18 +290,6 @@ Template.home.helpers
 
     searching: -> Session.get('searching')
 
-    one_post: -> Docs.find().count() is 1
-
-    two_posts: -> Docs.find().count() is 2
-    three_posts: -> Docs.find().count() is 3
-    four_posts: -> Docs.find().count() is 4
-    # five_posts: -> Docs.find().count() is 5
-    # six_posts: -> Docs.find().count() is 6
-    # seven_posts: -> Docs.find().count() is 7
-    # eight_posts: -> Docs.find().count() is 8
-    # nine_posts: -> Docs.find().count() is 9
-    # ten_posts: -> Docs.find().count() is 10
-    # more_than_ten: -> Docs.find().count() > 10
     more_than_four: -> Docs.find().count() > 4
     one_result: ->
         Docs.find().count() is 1
@@ -375,7 +298,7 @@ Template.home.helpers
         # if selected_tags.array().length > 0
         cursor =
             Docs.find {
-                model:['reddit','wikipedia']
+                model:'wikipedia'
             },
                 sort:
                     points:-1

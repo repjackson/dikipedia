@@ -46,115 +46,15 @@ template(name='home')
                         .ui.compact.circular.large.button.select_emotion(class=emotion_selector_class)
                             small #{count}
                             |#{title}
-                //- div
-                //- .ui.circular.icon.disabled.button 
-                //-     i.picture.large.icon
-                //- .ui.circular.icon.disabled.button 
-                //-     i.video.large.icon
-                //- .ui.circular.icon.disabled.button 
-                //-     i.content.large.icon
-                div
-                small #{curent_date_setting}
             .twelve.wide.column.scrolling
-                if one_result
-                    each doc_results
-                        +one_doc
-                if two_posts
-                    .ui.grid
-                        .two.column.row
-                            each doc_results
-                                +doc_card
-                if three_posts
-                    .ui.grid
-                        .two.column.row
-                            each doc_results
-                                +small_card
-                if four_posts
-                    .ui.stackable.grid
-                        .four.column.row
-                            each doc_results
-                                +medium_card
-                if more_than_four
-                    //- .ui.selection.list
-                    each doc_results
-                        +doc_list_item
-                        .spacer
-                    //- .ui.grid.mobile.only
-                    //-     .two.column.centered.row
-                    //-         each doc_results
-                    //-             +small_card
-                    //- .ui.stackable.grid
-                    //-     .five.column.row
-                    //-         each doc_results
-                    //-             +small_card
-                    //- .ui.centered.stackable.five.cards
-                //- if six_posts
-                //-     .ui.grid
-                //-         .four.column.row
-                //-             each doc_results
-                //-                 +small_card
-                //- if seven_posts
-                //-     .ui.grid
-                //-         .four.column.row
-                //-             each doc_results
-                //-                 +small_card
-                //- //- if eight_posts
-                //- //-     .ui.large.selection.list
-                //- //-         each doc_results
-                //- //-             .item 
-                //- //-                 .header
-                //- //-                     |#{title}
-                //- //-                 a.ui.large.compact.circular.button(href="https://www.reddit.com/#{permalink}" target="_blank" title='view reddit comments')
-                //- //-                     i.chat.outline.large.icon
-                //- //-                     |#{comment_count}
-                //- //-                 a.ui.tertiary.button(href="https://www.reddit.com/r/#{subreddit}" target="_blank")
-                //- //-                     i.reddit.icon
-                //- //-                     |r/#{subreddit}
-                //- //-                 if publish_when
-                //- //-                     .ui.small.tertiary.circular.button
-                //- //-                         //- i.calendar.icon
-                //- //-                         //- |#{watson.metadata.publication_date}
-                //- //-                         |#{publish_when}
-                //- //-                 .ui.tertiary.circular.button.toggle_domain(title='add domain')
-                //- //-                     //- i.globe.icon
-                //- //-                     |#{domain}
-                //- 
-                //- if nine_posts
-                //-     .ui.grid
-                //-         .seven.column.centered.row
-                //-             each doc_results
-                //-                 +small_card
-                //-     //- 
-                //-     //- .ui.large.selection.list.scrolling
-                //-     //-     each doc_results
-                //-     //-         .item #{title}
-                //- if ten_posts
-                //-     .ui.grid.mobile.only
-                //-         .two.column.centered.row
-                //-             each doc_results
-                //-                 +medium_card
-                //- 
-                //-     .ui.grid.mobile.hidden
-                //-         .four.column.row
-                //-             each doc_results
-                //-                 +small_card
-                //- if more_than_ten
-                //-     .ui.stackable.grid
-                //-         .seven.column.centered.row
-                //-             each doc_results 
-                //-                 +small_card
-                //- //- .centered.row.flat
-                //- //-     .eight.wide.column
-                //- //-         //- .ui.hidden.divider
-                //- //-         .ui.header 
-                //- //-             |sponsored by
-                //- //-             a(href="https://ciomastermind.com/" target="_window")
-                //- //-                 //- |ciomastermind
-                //- //-                 img.ui.small.inline.image(src="https://static1.squarespace.com/static/5e7227fe0a7d0212a00b4e68/t/5e73a2c578579570907dfe02/1591829497276/?format=1500w")
+                //- .ui.selection.list
+                each doc_results
+                    +doc_list_item
+                    .spacer
                     
                     
 template(name='agg_tag')
-    button.ui.button.result(tabindex="0" title=count)
+    button.ui.circular.compact.button.result(tabindex="0" title=count)
         if term.image
             //- button.ui.compact.circular.button(tabindex="0" title=count)
             //- img.ui.mini.inline.image(src=term.image)

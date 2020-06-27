@@ -3,8 +3,12 @@ template(name='doc_page')
         .ui.stackable.padded.grid 
             .middle.aligned.row
                 .four.wide.center.aligned.column 
-                    a.ui.circular.icon.large.button(href="/")
-                        i.left.chevron.big.icon
+                    if dev
+                        a.ui.circular.icon.large.button(href="localhost:3000")
+                            i.left.chevron.big.icon
+                    else
+                        a.ui.circular.icon.large.button(href="https://www.dikipedia.io")
+                            i.left.chevron.big.icon
                 .eight.wide.column 
                     .ui.center.aligned.big.header(class=emotion_color_class) !{title}
                 .four.wide.column 
@@ -17,21 +21,11 @@ template(name='doc_page')
                     .scrolling
                         if wiki_html
                             |!{wiki_html.content}
-                            //- if rd.selftext_html
-                            //-     //- unless tone
-                            //-     //- .content
-                            //-     |!{parsed_selftext_html}
-                            //-     //- |!{rd.selftext_html}
                         else
                             if tone
                                 //- .scrolling
                                 +tone
                             //- else
-                        //- if rd.selftext
-                        //-     .content
-                        //-         +markdown
-                        //-             !{rd.selftext}
-                
                     //- +session_edit_value_button key='view_tone' value=false label='plain'
 
                     if tags
@@ -47,7 +41,6 @@ template(name='doc_page')
                         +watson_view
                         
                 .four.wide.column 
-                    //- if has_thumb
                     .meta
                         if watson.metadata.image 
                             a(href=watson.metadata.image target='_window')
@@ -63,30 +56,22 @@ template(name='doc_page')
                             i.external.icon
                             |view link
                         //- span.ui.grey.text #{domain}
-                        if author
-                            a.ui.button(href="https://www.reddit.com/user/#{author}" target='_window')
-                                i.pencil.icon
-                                |#{author}
                         //- i.refresh.circular.link.icon.calc_post
-                        //- a.ui.circular.button(href="https://www.reddit.com/#{permalink}" target="_blank" title='view reddit comments')
-                        //-     i.chat.outline.large.icon
-                        //-     |#{comment_count}
                         if publish_when
                             .ui.circular.button
                                 //- i.calendar.icon
                                 //- |#{watson.metadata.publication_date}
                                 |#{publish_when}
                         div
-                        //- +voting_full
                     .ui.circular.button.call_wiki 
                         i.wikipedia.icon
                         |call wiki
                     .ui.circular.button.call_watson 
                         i.chess.icon
                         |tag url
-                    .ui.circular.button.call_watson_image
-                        i.chess.icon
-                        |tag image
+                    //- .ui.circular.button.call_watson_image
+                    //-     i.chess.icon
+                    //-     |tag image
                     .ui.circular.button.pull_tone
                         i.download.icon
                         |download content

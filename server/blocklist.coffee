@@ -25,9 +25,14 @@
 
 
 @blocklist = [
+    'main articles'
+    'pages'
+    '.inc'
+    'following year'
     'terms of use'
     'additional terms'
     'registered trademark of the wikimedia foundation'
+    'disambiguation page lists  articles'
     'site'
     'utc'
     'text'
